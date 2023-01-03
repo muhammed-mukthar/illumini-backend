@@ -2,11 +2,14 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
-const apiroute=require('./routes/api')
-const authroute=require('./routes/auth')
-const morgan=require('morgan')
+const apiroute = require("./routes/data");
+const authroute = require("./routes/auth");
+const cors=require('cors')
+const morgan = require("morgan");
 app.use(express.json());
-app.use(morgan('common'))
+app.use(morgan("common"));
+app.use(cors({ origin: process.env.CORS_VARS.split(", ") }));
+
 const port = process.env.PORT || 5000;
 mongoose.set("strictQuery", false);
 
@@ -20,8 +23,8 @@ db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
   console.log("db Connected successfully");
 });
-// app.use('/api',apiroute)
-app.use('/api/auth',authroute)
+app.use("/api/data", apiroute);
+app.use("/api/auth", authroute);
 
 app.listen(process.env.PORT, () => {
   console.log(`port running on ${port}`);
