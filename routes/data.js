@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { VerifyToken } = require("../middleware/jwtvalidate");
+const { VerifyToken } = require("../middleware/jwtValidate");
 const DataModel=require('../models/DataModel')
 
 
