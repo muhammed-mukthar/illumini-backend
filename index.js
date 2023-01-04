@@ -8,7 +8,7 @@ const cors=require('cors')
 const morgan = require("morgan");
 app.use(express.json());
 app.use(morgan("common"));
-app.use(cors({ origin: process.env.CORS_VARS.split(", ") }));
+app.use(cors("*"));
 
 const port = process.env.PORT || 5000;
 mongoose.set("strictQuery", false);
