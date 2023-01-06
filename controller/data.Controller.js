@@ -45,7 +45,14 @@ exports.getSnapshotController = async (req, res) => {
         $group: {
           _id: null,
           Total_Associates_Covered: {
-            $sum: "$data.N(Associates attended)",
+            
+            $sum: {
+              $cond: [
+                { $eq: [ "$view", "detail" ] },
+                1,
+                0
+              ]
+            }
           },
           Average_Score: {
             $avg: "$data.Avg (Score)",
