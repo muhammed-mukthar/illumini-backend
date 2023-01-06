@@ -51,13 +51,21 @@ exports.getSnapshotController = async (req, res) => {
             $avg: "$data.Avg (Score)",
           },
           Modules_covered: {
-            $sum: "$data.No of modules attended",
+            $avg: "$data.No of modules attended",
           },
           Average_Feedback: {
             $avg: "$data.Feedback",
           },
           Assessments_Pending: {
-            $sum: "$data.Assessments Pending",
+            $sum: {
+              $cond: {
+                if: {
+                  $gt: ["$data.Assessments Pending", 0]
+                },
+                then: 1,
+                else: 0
+              }
+            }
           },
           Level_A_Student: {
             $sum: {
